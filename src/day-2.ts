@@ -4,16 +4,28 @@ const results = fs.readFileSync("day-2.txt", "utf-8");
 const matches = results.split("\n");
 matches.pop();
 function getInputPoints(input: string) {
-    if (input === 'X') {
+    if (input === 'A') {
         return 1
     }
-    if (input === 'Y') {
+    if (input === 'B') {
         return 2
     }
-    if (input === 'Z') {
+    if (input === 'C') {
         return 3
     }
 }
+
+function matchResultCalculator(input: string) {
+    if (input === 'X') {
+       return 0; 
+    }
+    if (input === 'Y') {
+       return 3; 
+    }
+    if (input === 'Z') {
+        return 6;
+    }
+} 
 // win = 6 points, draw = 3 points, loss = 0 points
 // A = Rock
 // B = Paper 
@@ -23,32 +35,28 @@ function getInputPoints(input: string) {
 // Y = Paper
 // Z = Scissors
 function determineScore(inputOne: string, inputTwo: string) {
-    if (inputOne === 'A' && inputTwo === 'Y') {
-        return getInputPoints(inputTwo) + 6;
+    if (inputTwo === 'Y') {
+        return getInputPoints(inputOne) + 3;
     }
-    if (inputOne === 'A' && inputTwo === 'X') {
-        return getInputPoints(inputTwo) + 3;
+
+    if (inputTwo === 'X') {
+        if (inputOne === 'A') {
+            return getInputPoints('C');
+        }
+        if (inputOne === 'B') {
+            return getInputPoints('A');
+        }
+        return getInputPoints('B');
     }
-    if (inputOne === 'A' && inputTwo === 'Z') {
-        return getInputPoints(inputTwo) + 0;
-    }
-    if (inputOne === 'B' && inputTwo === 'Z') {
-        return getInputPoints(inputTwo) + 6;
-    }
-    if (inputOne === 'B' && inputTwo === 'Y') {
-        return getInputPoints(inputTwo) + 3;
-    }
-    if (inputOne === 'B' && inputTwo === 'X') {
-        return getInputPoints(inputTwo) + 0;
-    }
-    if (inputOne === 'C' && inputTwo === 'Y') {
-        return getInputPoints(inputTwo) + 0;
-    }
-    if (inputOne === 'C' && inputTwo === 'Z') {
-        return getInputPoints(inputTwo) + 3;
-    }
-    if (inputOne === 'C' && inputTwo === 'X') {
-        return getInputPoints(inputTwo) + 6;
+
+    if (inputTwo === 'Z') {
+        if (inputOne === 'A') {
+            return getInputPoints('B') + 6;
+        }
+        if (inputOne === 'B') {
+            return getInputPoints('C') + 6;
+        }
+        return getInputPoints('A') + 6;
     }
 }
 function caclculateWins() {

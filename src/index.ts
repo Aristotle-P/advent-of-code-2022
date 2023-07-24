@@ -12,15 +12,21 @@ items.forEach(item => {
     i++
     return filteredItems.push([]);
 })
+
 let sum = 0;
-filteredItems.forEach(itemArr => {
-    let currentSum = 0;
-    itemArr.forEach(item => {
-        const x = Number(item);
-        currentSum = currentSum + x;
+for (i=0;i<3;i++) {
+    let tempSum = 0;
+    filteredItems.forEach((itemArr, index) => {
+        let currentSum = 0;
+        itemArr.forEach(item => {
+            const x = Number(item);
+            currentSum = currentSum + x;
+        })
+        if (currentSum > tempSum) {
+            tempSum = currentSum;
+            filteredItems.splice(index, 1);
+        }
     })
-    if (currentSum > sum) {
-        sum = currentSum;
-    }
-})
+    sum = tempSum + sum;
+}
 console.log(sum);

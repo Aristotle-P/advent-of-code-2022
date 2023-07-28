@@ -4,34 +4,35 @@ const lines = fs.readFileSync("day-3.txt", "utf-8").split("\n");
 lines.pop();
 
 
-const lLine = []; 
-const rLine = []; 
 const dupes = [];
 const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 
     'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-lines.forEach(line => {
+const groups = [[]]; 
+let groupIndex = 0;
+lines.forEach((line, i) => {
     const lineArr = line.split("");
-    lineArr.forEach((x, i) => {
-        if (i < line.length / 2) {
-            return lLine.push(x);
-        }
-        return rLine.push(x)
-    })
-    const lLineDupes = [];
-    lLine.forEach(char => {
-        if (lLineDupes.includes(char)) {
+    if (groups[groupIndex].length === 3) {
+        groups.push([]);
+        groupIndex++
+        groups[groupIndex].push(lineArr);
+        return;
+    }
+    groups[groupIndex].push(lineArr);
+})
+groups.forEach(group => {
+    const lineDupes = [];
+    group[0].forEach(char => {
+        if (lineDupes.includes(char)) {
             return;
         }
-        if (rLine.includes(char)) {
+        if (group[1].includes(char) && group[2].includes(char)) {
             dupes.push(char);
-            return lLineDupes.push(char);
+            lineDupes.push(char);
+            return;
         }
     })
-    lLine.length = 0;
-    rLine.length = 0;
 })
 let sum = 0;
-console.log(dupes);
 dupes.forEach(dupe => {
     alphabet.forEach((char, i) => {
         if (dupe === char.toUpperCase()) {

@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-const results = fs.readFileSync('input-1.txt', 'utf8');
+const results = fs.readFileSync("inputs/day-1.txt", "utf8");
 
 const items = results.split("\n");
 let i = 0;

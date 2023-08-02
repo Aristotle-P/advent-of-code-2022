@@ -1,6 +1,6 @@
 import fs from "fs";
 
-const results = fs.readFileSync("day-2.txt", "utf-8");
+const results = fs.readFileSync("inputs/day-2.txt", "utf-8");
 const matches = results.split("\n");
 matches.pop();
 function getInputPoints(input: string) {

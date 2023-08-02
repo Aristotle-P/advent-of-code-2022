@@ -1,6 +1,6 @@
 import fs from "fs";
 
-const lines = fs.readFileSync("day-3.txt", "utf-8").split("\n");
+const lines = fs.readFileSync("inputs/day-3.txt", "utf-8").split("\n");
 lines.pop();
 
 

@@ -1,7 +1,7 @@
 import fs from "fs";
-const lines = fs.readFileSync("inputs/day-4.txt", "utf-8").split("\n");
+const lines = fs.readFileSync("inputs/day-4-tmp.txt", "utf-8").split("\n");
 lines.pop();
-function getTotal(arr: string[]) {
+function getContained(arr: string[]) {
     let total = 0;
     arr.forEach((line) => {
         const x = line.split(",");
@@ -14,4 +14,18 @@ function getTotal(arr: string[]) {
     })
     return total;
 }
-console.log(getTotal(lines));
+console.log(getContained(lines));
+
+function getOverlap(arr: string[]) {
+    let total = 0;
+    arr.forEach((line) => {
+        const x = line.split(",");
+        const left = x[0].split("-").map(num => +num);
+        const right = x[1].split("-").map(num => +num);
+
+        if (left[0] <= right[0]) {
+            console.log('thing');
+        }
+    })
+    return total;
+}

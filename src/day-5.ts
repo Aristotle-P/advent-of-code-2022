@@ -2,19 +2,24 @@ import fs from "fs";
 const lines = fs.readFileSync("inputs/day-5-tmp.txt", "utf-8").split("\n");
 lines.pop();
 const stacks = [];
-function createStacks(input: String[]) {
+function splitInput(input: String[]) {
     let x = false;
     let i = 0;
     while (x === false) {
         if (input[i].includes("1")) {
+            i++;
+            i++;
+            for (let v = 0; v < i; v++) {
+                input.shift();
+            }
             break;
         }
+        console.log(input[i]);
         stacks.push(input[i]);
-        input.shift();
         i++;
     }
 }
-createStacks(lines);
+splitInput(lines);
 console.log(stacks);
 console.log(lines);
 // Test input visualized

@@ -44,16 +44,17 @@ function filterInstructions(input: string[]) {
 createStacks(lines);
 filterInstructions(lines);
 
-function sortStacks(stack, commands) {
+function sortStacks(stacks: Array<String[]>, commands: number[]) {
     commands.forEach(command => {
-        for (let i = 1; i < command[0]; i++) {
+        for (let i = 1; i <= command[0]; i++) {
+            const node = stacks[command[1] -1].shift();
+            stacks[command[2] -1].unshift(node);
         }
     })
 }
 
-
+sortStacks(stacks, instructions);
 console.log(stacks);
-console.log(instructions);
 // Test input visualized
 //     [D]    
 // [N] [C]    

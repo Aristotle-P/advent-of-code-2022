@@ -1,28 +1,22 @@
 import fs from "fs";
-const lines = fs.readFileSync("inputs/day-5-tmp.txt", "utf-8").split("\n");
+const lines = fs.readFileSync("inputs/day-5.txt", "utf-8").split("\n");
 lines.pop();
-const stacks = [[], [], []];
+const stacks = [[], [], [], [], [], [], [], [], []];
 const instructions = [];
 
-// Needs to be refactored
 function createStacks(input: string[]) {
     const regex = /[A-Z]/
+    const indices = [1, 5, 9, 13, 17, 21, 25, 29, 33];
     input.forEach(x => {
         if (!regex.test(x)) {
             return;
         }
-        
-        if (regex.test(x[1])) {
-                stacks[0].push(x[1]);
-        }
-
-        if (regex.test(x[5])) {
-                stacks[1].push(x[5])
-        }
-
-        if (regex.test(x[9])) {
-                stacks[2].push(x[9])
-        }
+        indices.forEach(index => {
+            const stackIndex = indices.indexOf(index);
+            if (regex.test(x[index])) {
+                stacks[stackIndex].push(x[index]);
+            }
+        })
     });
 }
 
@@ -36,15 +30,18 @@ function filterInstructions(input: string[]) {
     })
     unfiltered.shift();
     unfiltered.forEach(line => {
-        const filteredLine = line.replace(/[^\d]/g, '')
-        instructions.push(filteredLine);
+        const x = line.split(" ");
+        const nodeOne = parseInt(x[1], 10);
+        const nodeTwo = parseInt(x[3], 10);
+        const nodeThree = parseInt(x[5], 10);
+        instructions.push([nodeOne, nodeTwo, nodeThree]);
     })
 }
 
 createStacks(lines);
 filterInstructions(lines);
 
-function sortStacks(stacks: Array<String[]>, commands: number[]) {
+function sortStacks(stacks: Array<String[]>, commands: Array<number[]>) {
     commands.forEach(command => {
         for (let i = 1; i <= command[0]; i++) {
             const node = stacks[command[1] -1].shift();
@@ -52,16 +49,5 @@ function sortStacks(stacks: Array<String[]>, commands: number[]) {
         }
     })
 }
-
 sortStacks(stacks, instructions);
 console.log(stacks);
-// Test input visualized
-//     [D]    
-// [N] [C]    
-// [Z] [M] [P]
-//  1   2   3 
-//
-// move 1 from 2 to 1
-// move 3 from 1 to 3
-// move 2 from 2 to 1
-// move 1 from 1 to 2

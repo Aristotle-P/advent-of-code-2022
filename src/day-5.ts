@@ -1,5 +1,5 @@
 import fs from "fs";
-const lines = fs.readFileSync("inputs/day-5.txt", "utf-8").split("\n");
+const lines = fs.readFileSync("inputs/day-5-tmp.txt", "utf-8").split("\n");
 lines.pop();
 const stacks = [[], [], [], [], [], [], [], [], []];
 const instructions = [];
@@ -49,5 +49,31 @@ function sortStacks(stacks: Array<String[]>, commands: Array<number[]>) {
         }
     })
 }
-sortStacks(stacks, instructions);
+
+function sortStacksAlt(stacks: Array<String[]>, commands: Array<number[]>) {
+    commands.forEach(command => {
+        const nodes = [];
+        for (let i = 1; i <= command[0]; i++) {
+            const node = stacks[command[1] -1].shift();
+            nodes.push(node);
+        }
+        console.log(`nodes length is: ${nodes.length}`);
+        for (let i = 0; i < nodes.length +1; i++) {
+            console.log(nodes, i);
+            const node = nodes.pop();
+            stacks[command[2] -1].unshift(node);
+            console.log(nodes, i);
+        }
+    })
+}
+sortStacksAlt(stacks, instructions);
 console.log(stacks);
+//     [D]    
+// [N] [C]    
+// [Z] [M] [P]
+//  1   2   3 
+//
+// move 1 from 2 to 1
+// move 3 from 1 to 3
+// move 2 from 2 to 1
+// move 1 from 1 to 2
